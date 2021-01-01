@@ -13,7 +13,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipPercantageLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var tipSlider: UISlider!
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -21,6 +23,7 @@ class ViewController: UIViewController {
     
     @IBAction func onTap(_ sender: Any) {
     }
+    
     
     
     @IBAction func calculateTip(_ sender: Any) {
@@ -33,10 +36,28 @@ class ViewController: UIViewController {
         let tip = bill * tipPercantages[tipControl.selectedSegmentIndex]
         let total = bill + tip
         
+        // Update Slider
+        tipSlider.value = Float(tipPercantages[tipControl.selectedSegmentIndex])
+        
         // Update the tip and total labels
         tipPercantageLabel.text = String(format: "$%.2f", tip)
         totalLabel.text = String(format: "$%.2f", total)
     }
+    
+    
+    @IBAction func calculateTipSlider(_ sender: Any) {
+        // Get initial bill amount and calculate tips
+        let bill = Double(billAmountTextField.text!) ?? 0
+        
+        // Calculate tip and total
+        let tip = bill * Double(tipSlider.value)
+        let total = bill + tip
+        
+        // Update the tip and total labels
+        tipPercantageLabel.text = String(format: "$%.2f", tip)
+        totalLabel.text = String(format: "$%.2f", total)
+    }
+    
     
 }
 
