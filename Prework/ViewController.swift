@@ -34,23 +34,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var key_8: UIButton!
     @IBOutlet weak var key_9: UIButton!
     @IBOutlet weak var key_0: UIButton!
-    @IBOutlet weak var clearLeft: UIButton!
     @IBOutlet weak var key_enter: UIButton!
-    
-    @IBOutlet weak var key_clearLeft: UIButton!
+    @IBOutlet weak var key_clear: UIButton!
     
     var bill = ""
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        billAmountTextField.becomeFirstResponder()
-    }
-    
-    
-    @IBAction func onTap(_ sender: Any) {
-    }
-    
-    
+    override func viewDidLoad() {super.viewDidLoad()}
+    @IBAction func onTap(_ sender: Any) {}
     
     @IBAction func calculateTip(_ sender: Any) {
         
@@ -70,7 +60,6 @@ class ViewController: UIViewController {
         totalLabel.text = String(format: "$%.2f", total)
     }
     
-    
     @IBAction func calculateTipSlider(_ sender: Any) {
         // Get initial bill amount and calculate tips
         let bill = Double(billAmountTextField.text!) ?? 0
@@ -87,9 +76,6 @@ class ViewController: UIViewController {
     
     // Number pad
     @IBAction func numPad(_ sender: Any) {
-        print("PRESSED numpad")
-        //4bill = ""
-        
         if key_enter.isTouchInside{
             calculateTip(self)
         }
@@ -132,16 +118,14 @@ class ViewController: UIViewController {
         else if key_0.isTouchInside{
             bill += "0"
         }
-        
-        else if key_clearLeft.isTouchInside{
+        else if key_clear.isTouchInside{
             bill = ""
+            tipPercantageLabel.text = ""
+            totalLabel.text = ""
         }
-        
         billAmountTextField.text = bill
-        
     }
-    
-    
+
     // Dark / light Mode
     @IBAction func changeColor(_ sender: Any) {
         
@@ -152,30 +136,51 @@ class ViewController: UIViewController {
             
             self.view.backgroundColor = white
             
-            BillAmountDesc.textColor = black
-            billAmountTextField.textColor = black
+            tipPercantageLabel.backgroundColor = white
+            totalLabel.backgroundColor = white
+            billAmountTextField.backgroundColor = white
             
-            tipPercantageDesc.textColor = black
-            tipPercantageLabel.textColor = black
-            
-            totalDesc.textColor = black
-            totalLabel.textColor = black
+            // change color for numpad
+            key_1.backgroundColor = white
+            key_2.backgroundColor = white
+            key_3.backgroundColor = white
+            key_4.backgroundColor = white
+            key_5.backgroundColor = white
+            key_6.backgroundColor = white
+            key_7.backgroundColor = white
+            key_8.backgroundColor = white
+            key_9.backgroundColor = white
+            key_0.backgroundColor = white
+            key_clear.backgroundColor = white
+            key_enter.backgroundColor = white
+
+            // Change color of UI segment
+            tipControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for:.normal)
             
         } else {
             self.view.backgroundColor = black
             
-            BillAmountDesc.textColor = white
-            billAmountTextField.textColor = white
+            tipPercantageLabel.backgroundColor = black
+            totalLabel.backgroundColor = black
+            billAmountTextField.backgroundColor = black
             
-            tipPercantageDesc.textColor = white
-            tipPercantageLabel.textColor = white
+            // change color for numpad
+            key_1.backgroundColor = black
+            key_2.backgroundColor = black
+            key_3.backgroundColor = black
+            key_4.backgroundColor = black
+            key_5.backgroundColor = black
+            key_6.backgroundColor = black
+            key_7.backgroundColor = black
+            key_8.backgroundColor = black
+            key_9.backgroundColor = black
+            key_0.backgroundColor = black
+            key_clear.backgroundColor = black
+            key_enter.backgroundColor = black
             
-            totalDesc.textColor = white
-            totalLabel.textColor = white
+            // Change color of UI segment
+            tipControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for:.normal)
         }
     }
-    
-    
-
 }
 
