@@ -23,11 +23,27 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipSlider: UISlider!
     @IBOutlet weak var tipControl: UISegmentedControl!
     
+    // Number pad
+    @IBOutlet weak var key_1: UIButton!
+    @IBOutlet weak var key_2: UIButton!
+    @IBOutlet weak var key_3: UIButton!
+    @IBOutlet weak var key_4: UIButton!
+    @IBOutlet weak var key_5: UIButton!
+    @IBOutlet weak var key_6: UIButton!
+    @IBOutlet weak var key_7: UIButton!
+    @IBOutlet weak var key_8: UIButton!
+    @IBOutlet weak var key_9: UIButton!
+    @IBOutlet weak var key_0: UIButton!
+    @IBOutlet weak var clearLeft: UIButton!
+    @IBOutlet weak var key_enter: UIButton!
     
+    @IBOutlet weak var key_clearLeft: UIButton!
     
+    var bill = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        billAmountTextField.becomeFirstResponder()
     }
     
     
@@ -69,6 +85,63 @@ class ViewController: UIViewController {
         
     }
     
+    // Number pad
+    @IBAction func numPad(_ sender: Any) {
+        print("PRESSED numpad")
+        //4bill = ""
+        
+        if key_enter.isTouchInside{
+            calculateTip(self)
+        }
+        else if key_1.isTouchInside {
+            bill += "1"
+        }
+        
+        else if key_2.isTouchInside {
+            bill += "2"
+        }
+        
+        else if key_3.isTouchInside{
+            bill += "3"
+        }
+        
+        else if key_4.isTouchInside{
+            bill += "4"
+        }
+        
+        else if key_5.isTouchInside{
+            bill += "5"
+        }
+        
+        else if key_6.isTouchInside{
+            bill += "6"
+        }
+        
+        else if key_7.isTouchInside{
+            bill += "7"
+        }
+        
+        else if key_8.isTouchInside{
+            bill += "8"
+        }
+        
+        else if key_9.isTouchInside{
+            bill += "9"
+        }
+        
+        else if key_0.isTouchInside{
+            bill += "0"
+        }
+        
+        else if key_clearLeft.isTouchInside{
+            bill = ""
+        }
+        
+        billAmountTextField.text = bill
+        
+    }
+    
+    
     // Dark / light Mode
     @IBAction func changeColor(_ sender: Any) {
         
@@ -103,6 +176,6 @@ class ViewController: UIViewController {
     }
     
     
-    
+
 }
 
