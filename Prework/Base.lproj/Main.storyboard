@@ -22,6 +22,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UqD-6M-tqf" userLabel="billAmountTextField">
+                                <rect key="frame" x="261" y="206" width="125" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="calculateTip:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="CIn-aL-Cqj"/>
+                                    <action selector="calculateTipSlider:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="kHz-Jv-boX"/>
+                                </connections>
+                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tip Percantage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Xx-df-59W">
                                 <rect key="frame" x="39" y="268" width="121" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -69,17 +80,13 @@
                                     <action selector="calculateTipSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="0Zf-Ie-ZNZ"/>
                                 </connections>
                             </slider>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UqD-6M-tqf" userLabel="billAmountTextField">
-                                <rect key="frame" x="261" y="206" width="125" height="34"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e7w-Vs-2ik">
+                                <rect key="frame" x="337" y="44" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="calculateTip:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="CIn-aL-Cqj"/>
-                                    <action selector="calculateTipSlider:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="kHz-Jv-boX"/>
+                                    <action selector="changeColor:" destination="BYZ-38-t0r" eventType="valueChanged" id="KY9-oI-n4e"/>
                                 </connections>
-                            </textField>
+                            </switch>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -89,10 +96,14 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="BillAmountDesc" destination="vGC-pE-RXO" id="63T-wa-r3t"/>
                         <outlet property="billAmountTextField" destination="UqD-6M-tqf" id="kdx-it-9pN"/>
+                        <outlet property="colorSwitch" destination="e7w-Vs-2ik" id="1XM-sD-ra6"/>
                         <outlet property="tipControl" destination="Wag-Xa-6GS" id="eaF-os-3yp"/>
+                        <outlet property="tipPercantageDesc" destination="4Xx-df-59W" id="qvq-VH-orG"/>
                         <outlet property="tipPercantageLabel" destination="2HY-ur-t75" id="9NY-AK-eJ9"/>
                         <outlet property="tipSlider" destination="5cB-uA-mJD" id="sU8-ZW-fta"/>
+                        <outlet property="totalDesc" destination="ANG-te-yYu" id="c7Q-Vg-FaH"/>
                         <outlet property="totalLabel" destination="ucT-6w-2ca" id="DYF-Lx-q4n"/>
                     </connections>
                 </viewController>
