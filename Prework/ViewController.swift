@@ -14,6 +14,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var BillAmountDesc: UILabel!
     @IBOutlet weak var billAmountTextField: UITextField!
     
+    @IBOutlet weak var rateDesc: UILabel!
+    @IBOutlet weak var ratelabel: UILabel!
+    
     @IBOutlet weak var tipPercantageDesc: UILabel!
     @IBOutlet weak var tipPercantageLabel: UILabel!
    
@@ -52,12 +55,14 @@ class ViewController: UIViewController {
         let tip = bill * tipPercantages[tipControl.selectedSegmentIndex]
         let total = bill + tip
         
-        // Update Slider
+        // Update Slider and set Rate label
         tipSlider.value = Float(tipPercantages[tipControl.selectedSegmentIndex])
+        ratelabel.text = String(tipSlider.value)
         
         // Update the tip and total labels
         tipPercantageLabel.text = String(format: "$%.2f", tip)
         totalLabel.text = String(format: "$%.2f", total)
+        
     }
     
     @IBAction func calculateTipSlider(_ sender: Any) {
@@ -71,7 +76,15 @@ class ViewController: UIViewController {
         // Update the tip and total labels
         tipPercantageLabel.text = String(format: "$%.2f", tip)
         totalLabel.text = String(format: "$%.2f", total)
+        ratelabel.text = String(tipSlider.value)
         
+    }
+    
+    @IBAction func clearText(_ sender: Any){
+        bill = ""
+        tipPercantageLabel.text = ""
+        totalLabel.text = ""
+        ratelabel.text = ""
     }
     
     // Number pad
@@ -119,9 +132,7 @@ class ViewController: UIViewController {
             bill += "0"
         }
         else if key_clear.isTouchInside{
-            bill = ""
-            tipPercantageLabel.text = ""
-            totalLabel.text = ""
+            clearText(self)
         }
         billAmountTextField.text = bill
     }
