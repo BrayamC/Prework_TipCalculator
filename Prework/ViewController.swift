@@ -65,6 +65,13 @@ class ViewController: UIViewController {
         
     }
     
+    func addcurrencythousandsSeparators(num: String) -> String{
+        
+        // Insert commas to number and return
+        
+        return num
+        
+    }
     @IBAction func calculateTipSlider(_ sender: Any) {
         // Get initial bill amount and calculate tips
         let bill = Double(billAmountTextField.text!) ?? 0
@@ -73,9 +80,11 @@ class ViewController: UIViewController {
         let tip = bill * Double(tipSlider.value)
         let total = bill + tip
         
+        let totalCommas = addcurrencythousandsSeparators(num: String(total))
+        
         // Update the tip and total labels
         tipPercantageLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f", total)
+        totalLabel.text = String(format: "$%.2f", totalCommas)
         ratelabel.text = String(tipSlider.value)
         
     }
