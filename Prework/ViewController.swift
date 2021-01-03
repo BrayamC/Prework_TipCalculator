@@ -7,6 +7,7 @@
 
 import UIKit
 
+var mainClass = ViewController()
 class ViewController: UIViewController {
     
     @IBOutlet weak var colorSwitch: UISwitch!
@@ -44,7 +45,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Tip Calculator"
     }
+    
     @IBAction func onTap(_ sender: Any) {}
     
     @IBAction func calculateTip(_ sender: Any) {
