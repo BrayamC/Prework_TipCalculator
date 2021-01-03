@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="PdI-2U-ABT">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -97,6 +97,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="1"/>
                                 <connections>
+                                    <action selector="key_1:" destination="F3O-sR-Spm" eventType="touchUpInside" id="aJ6-HG-dMK"/>
                                     <action selector="numPad:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xuy-yh-54g"/>
                                 </connections>
                             </button>
@@ -147,6 +148,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="7"/>
                                 <connections>
+                                    <action selector="changeColor:" destination="F3O-sR-Spm" eventType="touchUpInside" id="DU9-7Z-9aF"/>
                                     <action selector="numPad:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jUv-yK-Txi"/>
                                 </connections>
                             </button>
@@ -236,6 +238,13 @@
                             <outletCollection property="gestureRecognizers" destination="yEt-zZ-CYg" appends="YES" id="T6k-MH-Qrb"/>
                         </connections>
                     </view>
+                    <navigationItem key="navigationItem" id="Gzn-3z-tL0">
+                        <barButtonItem key="rightBarButtonItem" title="settings" id="zGq-86-4uY">
+                            <connections>
+                                <segue destination="dPs-4k-cIb" kind="push" id="rmK-3L-Ni7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="BillAmountDesc" destination="vGC-pE-RXO" id="63T-wa-r3t"/>
                         <outlet property="billAmountTextField" destination="UqD-6M-tqf" id="kdx-it-9pN"/>
@@ -263,11 +272,59 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="F3O-sR-Spm" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="yEt-zZ-CYg">
                     <connections>
                         <action selector="onTap:" destination="BYZ-38-t0r" id="ga0-9j-GrJ"/>
                     </connections>
                 </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1047.8260869565217" y="118.52678571428571"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="48c-nY-w0t">
+            <objects>
+                <viewController id="dPs-4k-cIb" customClass="SettingsViewController" customModule="Prework" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="r19-gy-1DA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HuX-bB-WTG">
+                                <rect key="frame" x="345" y="128" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="changeColor:" destination="dPs-4k-cIb" eventType="valueChanged" id="dMK-kV-JEZ"/>
+                                    <action selector="changeScreenColor:" destination="dPs-4k-cIb" eventType="valueChanged" id="pPk-72-Ee4"/>
+                                </connections>
+                            </switch>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="KgP-ZR-rQG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="j0Q-Mm-bTN"/>
+                    <connections>
+                        <outlet property="colorSwitch" destination="HuX-bB-WTG" id="ml2-Ir-lQO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VFR-n5-nE0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1793" y="125"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ikT-GN-CaP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PdI-2U-ABT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dDS-Vj-N4Y">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="OCM-O1-ng8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TUj-cc-bkq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="118.52678571428571"/>
         </scene>
@@ -275,6 +332,9 @@
     <resources>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
