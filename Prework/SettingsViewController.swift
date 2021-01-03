@@ -8,22 +8,37 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
-
+    
+    @IBOutlet weak var tip0: UITextField!
+    @IBOutlet weak var tip1: UITextField!
+    @IBOutlet weak var tip2: UITextField!
+    
+    var tip0_val = 0.15
+    var tip1_val = 0.18
+    var tip2_val = 0.20
+    
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.title = "Settings"
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // Gets value from text field and sends it to defaults
+    @IBAction func changeTip0(_ sender: Any) {
+        tip0_val = Double(tip0.text!) ?? 0.15
+        defaults.set(tip0_val, forKey: "tip0")
     }
-    */
-
+    
+    // Gets value from text field and sends it to defaults
+    @IBAction func changeTip1(_ sender: Any) {
+        tip1_val = Double(tip1.text!) ?? 0.18
+        defaults.set(tip1_val, forKey: "tip1")
+    }
+    
+    // Gets value from text field and sends it to defaults
+    @IBAction func changeTip2(_ sender: Any) {
+        tip2_val = Double(tip2.text!) ?? 0.20
+        defaults.set(tip2_val, forKey: "tip2")
+    }
 }

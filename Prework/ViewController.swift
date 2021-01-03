@@ -7,8 +7,9 @@
 
 import UIKit
 
-var mainClass = ViewController()
 class ViewController: UIViewController {
+    
+    var tipPercantages = [0.15, 0.18, 0.2]
     
     @IBOutlet weak var colorSwitch: UISwitch!
     
@@ -46,16 +47,28 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Tip Calculator"
+        setTipValue(index: 1, val: 0.16)
+        print(getTipValue())
     }
     
     @IBAction func onTap(_ sender: Any) {}
+    
+    func setTipValue(index: Int, val: Double){
+        tipControl.setTitle(String(val*100) + "%", forSegmentAt: index)
+        tipPercantages[index] = val
+        
+    }
+    
+    func getTipValue() -> [Double]{
+        return tipPercantages
+    }
     
     @IBAction func calculateTip(_ sender: Any) {
         
         // Gets bill as a double, removes commas and $
         let billNoCommas = String(billAmountTextField.text!).filter("0123456789.".contains)
         let bill = Double(billNoCommas) ?? 0
-        let tipPercantages = [0.15, 0.18, 0.2]
+        let tipPercantages = getTipValue()
         
         // Calculate tip and total
         let tip = bill * tipPercantages[tipControl.selectedSegmentIndex]
@@ -220,6 +233,28 @@ class ViewController: UIViewController {
             // Change color of UI segment
             tipControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for:.normal)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //billAmountTextField.becomeFirstResponder()
+    }
+        
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //Access UserDefaults
+        let defaults = UserDefaults.standard
+        
+        // Set segment control to new values
+        let val0 = defaults.double(forKey: "tip0")
+        setTipValue(index: 0, val: val0)
+        
+        let val1 = defaults.double(forKey: "tip1")
+        setTipValue(index: 1, val: val1)
+        
+        let val2 = defaults.double(forKey: "tip2")
+        setTipValue(index: 2, val: val2)
     }
 }
 
