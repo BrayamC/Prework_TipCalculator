@@ -42,7 +42,10 @@ class ViewController: UIViewController {
     
     var bill = ""
     
-    override func viewDidLoad() {super.viewDidLoad()}
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //print(addcurrencythousandsSeparators(num: "1000"))
+    }
     @IBAction func onTap(_ sender: Any) {}
     
     @IBAction func calculateTip(_ sender: Any) {
@@ -54,6 +57,7 @@ class ViewController: UIViewController {
         // Calculate tip and total
         let tip = bill * tipPercantages[tipControl.selectedSegmentIndex]
         let total = bill + tip
+        let totalCommas = addcurrencythousandsSeparators(num: total)
         
         // Update Slider and set Rate label
         tipSlider.value = Float(tipPercantages[tipControl.selectedSegmentIndex])
@@ -61,17 +65,18 @@ class ViewController: UIViewController {
         
         // Update the tip and total labels
         tipPercantageLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f", total)
+        totalLabel.text = String(totalCommas)
         
     }
     
-    func addcurrencythousandsSeparators(num: String) -> String{
-        
+    func addcurrencythousandsSeparators(num: Double) -> String{
         // Insert commas to number and return
-        
-        return num
-        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        let formattedNumber = numberFormatter.string(from: NSNumber(value:num))
+        return String(formattedNumber!)
     }
+    
     @IBAction func calculateTipSlider(_ sender: Any) {
         // Get initial bill amount and calculate tips
         let bill = Double(billAmountTextField.text!) ?? 0
@@ -79,12 +84,11 @@ class ViewController: UIViewController {
         // Calculate tip and total
         let tip = bill * Double(tipSlider.value)
         let total = bill + tip
-        
-        let totalCommas = addcurrencythousandsSeparators(num: String(total))
+        let totalCommas = addcurrencythousandsSeparators(num: total)
         
         // Update the tip and total labels
         tipPercantageLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f", totalCommas)
+        totalLabel.text = String(totalCommas)
         ratelabel.text = String(tipSlider.value)
         
     }
@@ -144,6 +148,8 @@ class ViewController: UIViewController {
             clearText(self)
         }
         billAmountTextField.text = bill
+        //var bill2 = Double(billAmountTextField.text!) ?? 0
+        //billAmountTextField.text = addcurrencythousandsSeparators(num: bill2)
     }
 
     // Dark / light Mode
