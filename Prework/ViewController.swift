@@ -51,7 +51,11 @@ class ViewController: UIViewController {
     @IBAction func calculateTip(_ sender: Any) {
         
         // Get initial bill amount and calculate tips
-        let bill = Double(billAmountTextField.text!) ?? 0
+        //let bill = Double(billAmountTextField.text!) ?? 0
+        
+        // Gets bill as a double
+        let billNoCommas = String(billAmountTextField.text!).filter("0123456789.".contains)
+        let bill = Double(billNoCommas) ?? 0
         let tipPercantages = [0.15, 0.18, 0.2]
         
         // Calculate tip and total
@@ -79,7 +83,11 @@ class ViewController: UIViewController {
     
     @IBAction func calculateTipSlider(_ sender: Any) {
         // Get initial bill amount and calculate tips
-        let bill = Double(billAmountTextField.text!) ?? 0
+        //let bill = Double(billAmountTextField.text!) ?? 0
+        
+        // Gets bill as a double
+        let billNoCommas = String(billAmountTextField.text!).filter("0123456789.".contains)
+        let bill = Double(billNoCommas) ?? 0
         
         // Calculate tip and total
         let tip = bill * Double(tipSlider.value)
@@ -148,8 +156,9 @@ class ViewController: UIViewController {
             clearText(self)
         }
         billAmountTextField.text = bill
-        //var bill2 = Double(billAmountTextField.text!) ?? 0
-        //billAmountTextField.text = addcurrencythousandsSeparators(num: bill2)
+        let billcommas = Double(billAmountTextField.text!) ?? 0
+        billAmountTextField.text = addcurrencythousandsSeparators(num: billcommas)
+
     }
 
     // Dark / light Mode
