@@ -44,16 +44,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print(addcurrencythousandsSeparators(num: "1000"))
     }
     @IBAction func onTap(_ sender: Any) {}
     
     @IBAction func calculateTip(_ sender: Any) {
         
-        // Get initial bill amount and calculate tips
-        //let bill = Double(billAmountTextField.text!) ?? 0
-        
-        // Gets bill as a double
+        // Gets bill as a double, removes commas and $
         let billNoCommas = String(billAmountTextField.text!).filter("0123456789.".contains)
         let bill = Double(billNoCommas) ?? 0
         let tipPercantages = [0.15, 0.18, 0.2]
@@ -67,8 +63,11 @@ class ViewController: UIViewController {
         tipSlider.value = Float(tipPercantages[tipControl.selectedSegmentIndex])
         ratelabel.text = String(tipSlider.value)
         
+        // Add commas to tip
+        let tipCommas = addcurrencythousandsSeparators(num: tip)
+        
         // Update the tip and total labels
-        tipPercantageLabel.text = String(format: "$%.2f", tip)
+        tipPercantageLabel.text = String(tipCommas)
         totalLabel.text = String(totalCommas)
         
     }
@@ -79,13 +78,12 @@ class ViewController: UIViewController {
         numberFormatter.numberStyle = .currency
         let formattedNumber = numberFormatter.string(from: NSNumber(value:num))
         return String(formattedNumber!)
+        
     }
     
     @IBAction func calculateTipSlider(_ sender: Any) {
-        // Get initial bill amount and calculate tips
-        //let bill = Double(billAmountTextField.text!) ?? 0
-        
-        // Gets bill as a double
+
+        // Gets bill as a double, remove commas and $
         let billNoCommas = String(billAmountTextField.text!).filter("0123456789.".contains)
         let bill = Double(billNoCommas) ?? 0
         
@@ -94,8 +92,11 @@ class ViewController: UIViewController {
         let total = bill + tip
         let totalCommas = addcurrencythousandsSeparators(num: total)
         
+        // Add commas to tip
+        let tipCommas = addcurrencythousandsSeparators(num: tip)
+        
         // Update the tip and total labels
-        tipPercantageLabel.text = String(format: "$%.2f", tip)
+        tipPercantageLabel.text = String(tipCommas)
         totalLabel.text = String(totalCommas)
         ratelabel.text = String(tipSlider.value)
         
