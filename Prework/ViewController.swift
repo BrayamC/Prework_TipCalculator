@@ -16,20 +16,22 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var BillAmountDesc: UILabel!
     @IBOutlet weak var billAmountTextField: UITextField!
-    
     @IBOutlet weak var rateDesc: UILabel!
     @IBOutlet weak var ratelabel: UILabel!
-    
     @IBOutlet weak var tipPercantageDesc: UILabel!
     @IBOutlet weak var tipPercantageLabel: UILabel!
-   
+
     @IBOutlet weak var totalDesc: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     
     @IBOutlet weak var tipSlider: UISlider!
     @IBOutlet weak var tipControl: UISegmentedControl!
     
+    // Total Animation
     @IBOutlet weak var backTotal: UILabel!
+    @IBOutlet weak var whiteTotalLabel: UILabel!
+    var totalAnimation = false
+    
     // Number pad
     @IBOutlet weak var key_1: UIButton!
     @IBOutlet weak var key_2: UIButton!
@@ -65,11 +67,35 @@ class ViewController: UIViewController {
         return tipPercantages
     }
     
-    @IBAction func calculateTip(_ sender: Any) {
+    func resetTotalAnimation(){
         
-        self.totalLabel.transform = .identity
-        self.totalDesc.transform = .identity
-        self.backTotal.transform = .identity
+        if totalAnimation {
+            UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseInOut, animations: {
+                 self.totalLabel.transform = CGAffineTransform(translationX: self.totalLabel.bounds.origin.x, y: self.totalLabel.bounds.origin.y + 130)
+                
+                self.totalDesc.transform = CGAffineTransform(translationX: self.totalDesc.bounds.origin.x, y: self.totalDesc.bounds.origin.y + 130)
+                
+                self.backTotal.transform = CGAffineTransform(translationX: self.backTotal.bounds.origin.x, y: self.backTotal.bounds.origin.y + 130)
+            }, completion: nil)
+            totalAnimation = false
+        }
+    }
+    
+    func startTotalAnimation(){
+        
+        if !totalAnimation {
+            UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseInOut, animations: {
+                 self.totalLabel.transform = CGAffineTransform(translationX: self.totalLabel.bounds.origin.x, y: self.totalLabel.bounds.origin.y - 130)
+                
+                self.totalDesc.transform = CGAffineTransform(translationX: self.totalDesc.bounds.origin.x, y: self.totalDesc.bounds.origin.y - 130)
+                
+                self.backTotal.transform = CGAffineTransform(translationX: self.backTotal.bounds.origin.x, y: self.backTotal.bounds.origin.y - 130)
+            }, completion: nil)
+            totalAnimation = true
+        }
+    }
+    
+    @IBAction func calculateTip(_ sender: Any) {
         
         // Gets bill as a double, removes commas and $
         let billNoCommas = String(billAmountTextField.text!).filter("0123456789.".contains)
@@ -92,14 +118,7 @@ class ViewController: UIViewController {
         tipPercantageLabel.text = String(tipCommas)
         totalLabel.text = String(totalCommas)
         
-        UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseInOut, animations: {
-             self.totalLabel.transform = CGAffineTransform(translationX: self.totalLabel.bounds.origin.x, y: self.totalLabel.bounds.origin.y - 130)
-            
-            self.totalDesc.transform = CGAffineTransform(translationX: self.totalDesc.bounds.origin.x, y: self.totalDesc.bounds.origin.y - 130)
-            
-            self.backTotal.transform = CGAffineTransform(translationX: self.backTotal.bounds.origin.x, y: self.backTotal.bounds.origin.y - 130)
-        }, completion: nil)
-        
+        startTotalAnimation()
     }
     
     func addcurrencythousandsSeparators(num: Double) -> String{
@@ -108,7 +127,7 @@ class ViewController: UIViewController {
         numberFormatter.numberStyle = .currency
         let formattedNumber = numberFormatter.string(from: NSNumber(value:num))
         return String(formattedNumber!)
-        
+
     }
     
     @IBAction func calculateTipSlider(_ sender: Any) {
@@ -145,7 +164,7 @@ class ViewController: UIViewController {
             calculateTip(self)
         }
         else if key_1.isTouchInside {
-            bill += "1"
+        bill += "1"
         }
         
         else if key_2.isTouchInside {
@@ -185,6 +204,7 @@ class ViewController: UIViewController {
         }
         else if key_clear.isTouchInside{
             clearText(self)
+            resetTotalAnimation()
         }
         billAmountTextField.text = bill
         let billcommas = Double(billAmountTextField.text!) ?? 0
@@ -222,6 +242,11 @@ class ViewController: UIViewController {
             // Change color of UI segment
             tipControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for:.normal)
             
+            // Change color of total Animation
+            backTotal.backgroundColor = white
+            whiteTotalLabel.backgroundColor = white
+            totalDesc.backgroundColor = white
+            
         } else {
             self.view.backgroundColor = black
             
@@ -245,15 +270,21 @@ class ViewController: UIViewController {
             
             // Change color of UI segment
             tipControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for:.normal)
+            
+            // Change color of total Animation
+            backTotal.backgroundColor = black
+            whiteTotalLabel.backgroundColor = black
+            totalDesc.backgroundColor = black
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //billAmountTextField.becomeFirstResponder()
+        resetTotalAnimation()
     }
         
     override func viewDidAppear(_ animated: Bool) {
+        
         super.viewDidAppear(animated)
         
         // Set segment control to new values
