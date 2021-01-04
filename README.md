@@ -15,7 +15,7 @@ The following **required** functionality is complete:
 
 The following **optional** features are implemented:
 
-* [ ] UI animations
+* [X] UI animations
 * [ ] Remembering the bill amount across app restarts (if <10mins)
 * [ ] Using locale-specific currency
 * [X] currency thousands separators.
