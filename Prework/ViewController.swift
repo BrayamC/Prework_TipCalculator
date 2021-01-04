@@ -11,7 +11,8 @@ class ViewController: UIViewController {
     
     var tipPercantages = [0.15, 0.18, 0.2]
     
-    @IBOutlet weak var colorSwitch: UISwitch!
+    //Access UserDefaults
+    let defaults = UserDefaults.standard
     
     @IBOutlet weak var BillAmountDesc: UILabel!
     @IBOutlet weak var billAmountTextField: UITextField!
@@ -47,8 +48,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Tip Calculator"
-        setTipValue(index: 1, val: 0.16)
-        print(getTipValue())
+        
+        defaults.set(false, forKey: "DarkMode")
     }
     
     @IBAction func onTap(_ sender: Any) {}
@@ -177,14 +178,13 @@ class ViewController: UIViewController {
         billAmountTextField.text = addcurrencythousandsSeparators(num: billcommas)
 
     }
-
-    // Dark / light Mode
-    @IBAction func changeColor(_ sender: Any) {
+    
+    func changeColorSettings(LightMode: Bool) {
         
         let white = UIColor(red: 255, green: 255, blue: 255, alpha: 1)
         let black = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         
-        if colorSwitch.isOn {
+        if !LightMode {
             
             self.view.backgroundColor = white
             
@@ -243,9 +243,6 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        //Access UserDefaults
-        let defaults = UserDefaults.standard
-        
         // Set segment control to new values
         let val0 = defaults.double(forKey: "tip0")
         setTipValue(index: 0, val: val0)
@@ -255,6 +252,9 @@ class ViewController: UIViewController {
         
         let val2 = defaults.double(forKey: "tip2")
         setTipValue(index: 2, val: val2)
+        
+        let light = defaults.bool(forKey: "DarkMode")
+        changeColorSettings(LightMode: light)
     }
 }
 

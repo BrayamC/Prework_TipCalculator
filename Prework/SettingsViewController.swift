@@ -12,6 +12,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var tip0: UITextField!
     @IBOutlet weak var tip1: UITextField!
     @IBOutlet weak var tip2: UITextField!
+    @IBOutlet weak var switchLight: UISwitch!
+    
     
     var tip0_val = 0.15
     var tip1_val = 0.18
@@ -41,4 +43,17 @@ class SettingsViewController: UIViewController {
         tip2_val = Double(tip2.text!) ?? 0.20
         defaults.set(tip2_val, forKey: "tip2")
     }
+    
+    @IBAction func changeLightMode(_ sender: Any) {
+        if switchLight.isOn {defaults.set(true, forKey: "DarkMode")}
+        else{defaults.set(false, forKey: "DarkMode")}
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    
+        let state = defaults.bool(forKey: "DarkMode")
+        switchLight.setOn(state, animated: false)
+    }
+    
 }
