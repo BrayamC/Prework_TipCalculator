@@ -23,6 +23,12 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Settings"
+        tip0.layer.borderColor = UIColor.gray.cgColor
+        tip1.layer.borderColor = UIColor.gray.cgColor
+        tip2.layer.borderColor = UIColor.gray.cgColor
+        tip0.layer.borderWidth = 1.0
+        tip1.layer.borderWidth = 1.0
+        tip2.layer.borderWidth = 1.0
     }
     
     // Gets value from text field and sends it to defaults
