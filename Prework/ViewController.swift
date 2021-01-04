@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipSlider: UISlider!
     @IBOutlet weak var tipControl: UISegmentedControl!
     
+    @IBOutlet weak var backTotal: UILabel!
     // Number pad
     @IBOutlet weak var key_1: UIButton!
     @IBOutlet weak var key_2: UIButton!
@@ -66,6 +67,10 @@ class ViewController: UIViewController {
     
     @IBAction func calculateTip(_ sender: Any) {
         
+        self.totalLabel.transform = .identity
+        self.totalDesc.transform = .identity
+        self.backTotal.transform = .identity
+        
         // Gets bill as a double, removes commas and $
         let billNoCommas = String(billAmountTextField.text!).filter("0123456789.".contains)
         let bill = Double(billNoCommas) ?? 0
@@ -86,6 +91,14 @@ class ViewController: UIViewController {
         // Update the tip and total labels
         tipPercantageLabel.text = String(tipCommas)
         totalLabel.text = String(totalCommas)
+        
+        UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseInOut, animations: {
+             self.totalLabel.transform = CGAffineTransform(translationX: self.totalLabel.bounds.origin.x, y: self.totalLabel.bounds.origin.y - 130)
+            
+            self.totalDesc.transform = CGAffineTransform(translationX: self.totalDesc.bounds.origin.x, y: self.totalDesc.bounds.origin.y - 130)
+            
+            self.backTotal.transform = CGAffineTransform(translationX: self.backTotal.bounds.origin.x, y: self.backTotal.bounds.origin.y - 130)
+        }, completion: nil)
         
     }
     
@@ -257,4 +270,3 @@ class ViewController: UIViewController {
         changeColorSettings(LightMode: light)
     }
 }
-

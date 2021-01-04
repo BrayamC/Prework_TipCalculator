@@ -52,7 +52,7 @@ class SettingsViewController: UIViewController {
             self.view.backgroundColor = UIColor.white
         }
     }
-    x
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     
