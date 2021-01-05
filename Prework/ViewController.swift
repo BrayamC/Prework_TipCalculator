@@ -119,6 +119,13 @@ class ViewController: UIViewController {
         totalLabel.text = String(totalCommas)
         
         startTotalAnimation()
+        
+        // Save data
+        defaults.set(bill, forKey: "bill")
+        defaults.set(String(tipPercantages[tipControl.selectedSegmentIndex]), forKey: "rate")
+        defaults.set(tipCommas, forKey: "tip")
+        defaults.set(String(totalCommas), forKey: "total")
+        
     }
     
     func addcurrencythousandsSeparators(num: Double) -> String{
@@ -149,6 +156,12 @@ class ViewController: UIViewController {
         totalLabel.text = String(totalCommas)
         ratelabel.text = String(tipSlider.value)
         
+        // Save data
+        defaults.set(bill, forKey: "bill")
+        defaults.set(String(tipPercantages[tipControl.selectedSegmentIndex]), forKey: "rate")
+        defaults.set(tipCommas, forKey: "tip")
+        defaults.set(String(totalCommas), forKey: "total")
+        
     }
     
     @IBAction func clearText(_ sender: Any){
@@ -164,7 +177,7 @@ class ViewController: UIViewController {
             calculateTip(self)
         }
         else if key_1.isTouchInside {
-        bill += "1"
+            bill += "1"
         }
         
         else if key_2.isTouchInside {
@@ -278,9 +291,16 @@ class ViewController: UIViewController {
         }
     }
     
+    func reloadData(){
+        billAmountTextField.text = addcurrencythousandsSeparators(num: defaults.double(forKey: "bill"))
+        ratelabel.text = String(defaults.string(forKey: "rate") ?? " ")
+        tipPercantageLabel.text = String(defaults.string(forKey: "tip") ?? " ")
+        totalLabel.text = String(defaults.string(forKey: "total") ?? " ")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        resetTotalAnimation()
+        //resetTotalAnimation()
     }
         
     override func viewDidAppear(_ animated: Bool) {
@@ -299,5 +319,9 @@ class ViewController: UIViewController {
         
         let light = defaults.bool(forKey: "DarkMode")
         changeColorSettings(LightMode: light)
+        
+        reloadData()
+        startTotalAnimation()
+
     }
 }
