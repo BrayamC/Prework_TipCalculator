@@ -4,7 +4,7 @@
 
 Submitted by: **Brayam Corral Flores**
 
-Time spent: **X** hours spent in total
+Time spent: **20** hours spent in total
 
 ## User Stories
 
@@ -16,15 +16,17 @@ The following **required** functionality is complete:
 The following **optional** features are implemented:
 
 * [X] UI animations
-* [ ] Remembering the bill amount across app restarts (if <10mins)
+* [X] Remembering the bill amount across app restarts (if <10mins)
 * [ ] Using locale-specific currency
 * [X] currency thousands separators.
 * [X] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
 
 The following **additional** features are implemented:
 
+- [X] User can change default tip values
 - [X] Added slider to change tip percantage.
 - [X] Dark and Light mode
+- [X] Remembering Dark and Light mode across app restarts (if <10mins)
 
 ## Video Walkthrough
 
@@ -36,7 +38,9 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Describe any challenges encountered while building the app:
+
+One of my greatest challenge was trying to keep track of data across screens. For example, I had trouble knowing when the user clicked on dark/light mode in the settings screen. I fixed this problem with user default values. Because this was my first time using mac software, I had to take some time to adjust to different shortcuts. 
 
 ## License
 
