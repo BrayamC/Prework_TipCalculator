@@ -51,8 +51,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Tip Calculator"
-        
-        defaults.set(false, forKey: "DarkMode")
     }
     
     @IBAction func onTap(_ sender: Any) {}
@@ -292,10 +290,15 @@ class ViewController: UIViewController {
     }
     
     func reloadData(){
-        billAmountTextField.text = addcurrencythousandsSeparators(num: defaults.double(forKey: "bill"))
-        ratelabel.text = String(defaults.string(forKey: "rate") ?? " ")
-        tipPercantageLabel.text = String(defaults.string(forKey: "tip") ?? " ")
-        totalLabel.text = String(defaults.string(forKey: "total") ?? " ")
+        
+        let tempBill = defaults.double(forKey: "bill")
+        if(tempBill > 0){
+            billAmountTextField.text = addcurrencythousandsSeparators(num: tempBill)
+            ratelabel.text = String(defaults.string(forKey: "rate") ?? " ")
+            tipPercantageLabel.text = String(defaults.string(forKey: "tip") ?? " ")
+            totalLabel.text = String(defaults.string(forKey: "total") ?? " ")
+            startTotalAnimation()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -321,7 +324,6 @@ class ViewController: UIViewController {
         changeColorSettings(LightMode: light)
         
         reloadData()
-        startTotalAnimation()
 
     }
 }
