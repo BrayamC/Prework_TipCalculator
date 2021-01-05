@@ -40,7 +40,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Describe any challenges encountered while building the app:
 
-One of my greatest challenge was trying to keep track of data across screens. For example, I had trouble knowing when the user clicked on dark/light mode in the settings screen. I fixed this problem with user default values. Because this was my first time using mac software, I had to take some time to adjust to different shortcuts. 
+One of the challenges I faced, was trying to keep track of data across screens. For example, I had trouble knowing when the user clicked on dark/light mode in the settings screen. I fixed this problem with user default values. Because this was my first time using mac software, I had to take some time to adjust to different shortcuts. 
 
 ## License
 
