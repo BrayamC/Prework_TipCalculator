@@ -9,9 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var tipPercantages = [0.15, 0.18, 0.2]
-    
-    //Access UserDefaults
+    // Access UserDefaults
     let defaults = UserDefaults.standard
     
     @IBOutlet weak var BillAmountDesc: UILabel!
@@ -20,10 +18,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var ratelabel: UILabel!
     @IBOutlet weak var tipPercantageDesc: UILabel!
     @IBOutlet weak var tipPercantageLabel: UILabel!
-
     @IBOutlet weak var totalDesc: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
-    
     @IBOutlet weak var tipSlider: UISlider!
     @IBOutlet weak var tipControl: UISegmentedControl!
     
@@ -46,6 +42,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var key_enter: UIButton!
     @IBOutlet weak var key_clear: UIButton!
     
+    // Segment Control values
+    var tipPercantages = [0.15, 0.18, 0.2]
+    
     var bill = ""
     
     override func viewDidLoad() {
@@ -55,18 +54,21 @@ class ViewController: UIViewController {
     
     @IBAction func onTap(_ sender: Any) {}
     
+    // setTipValue -- sets the segment control to the given value at the corresponding index
     func setTipValue(index: Int, val: Double){
         tipControl.setTitle(String(val*100) + "%", forSegmentAt: index)
         tipPercantages[index] = val
         
     }
     
+    // getTipValue -- returns the array of tip percantages located at the segment control
     func getTipValue() -> [Double]{
         return tipPercantages
     }
     
+    
+    // resetTotalAnimation -- attempts to move total text out of view. Makes sure objects are in correct  position before moving to old location
     func resetTotalAnimation(){
-        
         if totalAnimation {
             UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseInOut, animations: {
                  self.totalLabel.transform = CGAffineTransform(translationX: self.totalLabel.bounds.origin.x, y: self.totalLabel.bounds.origin.y + 130)
@@ -79,8 +81,9 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    // startTotalAnimation -- attempts to move total text into view. Makes sure objects are in correct  position before moving to new location
     func startTotalAnimation(){
-        
         if !totalAnimation {
             UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseInOut, animations: {
                  self.totalLabel.transform = CGAffineTransform(translationX: self.totalLabel.bounds.origin.x, y: self.totalLabel.bounds.origin.y - 130)
@@ -93,6 +96,19 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    // addcurrencythousandsSeparators --  adds commas to large number
+    func addcurrencythousandsSeparators(num: Double) -> String{
+        // Insert commas to number and return
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        let formattedNumber = numberFormatter.string(from: NSNumber(value:num))
+        return String(formattedNumber!)
+
+    }
+    
+    
+    // calculateTip -- calculates tip when the user pressed enter on hte number pad
     @IBAction func calculateTip(_ sender: Any) {
         
         // Gets bill as a double, removes commas and $
@@ -126,15 +142,8 @@ class ViewController: UIViewController {
         
     }
     
-    func addcurrencythousandsSeparators(num: Double) -> String{
-        // Insert commas to number and return
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .currency
-        let formattedNumber = numberFormatter.string(from: NSNumber(value:num))
-        return String(formattedNumber!)
-
-    }
     
+    // calculateTipSlider -- total is calculated if slider is manually moved
     @IBAction func calculateTipSlider(_ sender: Any) {
 
         // Gets bill as a double, remove commas and $
@@ -162,6 +171,8 @@ class ViewController: UIViewController {
         
     }
     
+    
+    // cleatText -- clears text labels of app
     @IBAction func clearText(_ sender: Any){
         bill = ""
         tipPercantageLabel.text = ""
@@ -169,60 +180,33 @@ class ViewController: UIViewController {
         ratelabel.text = ""
     }
     
-    // Number pad
+    
+    // numpad -- Number pad functionality of app. Concatinates input into a string
     @IBAction func numPad(_ sender: Any) {
-        if key_enter.isTouchInside{
-            calculateTip(self)
-        }
-        else if key_1.isTouchInside {
-            bill += "1"
-        }
-        
-        else if key_2.isTouchInside {
-            bill += "2"
-        }
-        
-        else if key_3.isTouchInside{
-            bill += "3"
-        }
-        
-        else if key_4.isTouchInside{
-            bill += "4"
-        }
-        
-        else if key_5.isTouchInside{
-            bill += "5"
-        }
-        
-        else if key_6.isTouchInside{
-            bill += "6"
-        }
-        
-        else if key_7.isTouchInside{
-            bill += "7"
-        }
-        
-        else if key_8.isTouchInside{
-            bill += "8"
-        }
-        
-        else if key_9.isTouchInside{
-            bill += "9"
-        }
-        
-        else if key_0.isTouchInside{
-            bill += "0"
-        }
+        if key_enter.isTouchInside{calculateTip(self)}
+        else if key_1.isTouchInside {bill += "1"}
+        else if key_2.isTouchInside {bill += "2"}
+        else if key_3.isTouchInside {bill += "3"}
+        else if key_4.isTouchInside {bill += "4"}
+        else if key_5.isTouchInside {bill += "5"}
+        else if key_6.isTouchInside {bill += "6"}
+        else if key_7.isTouchInside {bill += "7"}
+        else if key_8.isTouchInside {bill += "8"}
+        else if key_9.isTouchInside {bill += "9"}
+        else if key_0.isTouchInside {bill += "0"}
         else if key_clear.isTouchInside{
             clearText(self)
             resetTotalAnimation()
         }
+        
+        // Add commas to input from user(bill)
         billAmountTextField.text = bill
         let billcommas = Double(billAmountTextField.text!) ?? 0
         billAmountTextField.text = addcurrencythousandsSeparators(num: billcommas)
-
     }
     
+    
+    // changeColorSettings -- Changes the light mode of app... true: light Mode, false: dark mode
     func changeColorSettings(LightMode: Bool) {
         
         let white = UIColor(red: 255, green: 255, blue: 255, alpha: 1)
@@ -231,7 +215,6 @@ class ViewController: UIViewController {
         if !LightMode {
             
             self.view.backgroundColor = white
-            
             tipPercantageLabel.backgroundColor = white
             totalLabel.backgroundColor = white
             billAmountTextField.backgroundColor = white
@@ -260,7 +243,6 @@ class ViewController: UIViewController {
             
         } else {
             self.view.backgroundColor = black
-            
             tipPercantageLabel.backgroundColor = black
             totalLabel.backgroundColor = black
             billAmountTextField.backgroundColor = black
@@ -289,8 +271,9 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    // reloadData -- reloads input from previous calculation. Works across app restarts (t < 10m)
     func reloadData(){
-        
         let tempBill = defaults.double(forKey: "bill")
         if(tempBill > 0){
             billAmountTextField.text = addcurrencythousandsSeparators(num: tempBill)
@@ -301,28 +284,28 @@ class ViewController: UIViewController {
         }
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //resetTotalAnimation()
     }
         
+    
     override func viewDidAppear(_ animated: Bool) {
-        
         super.viewDidAppear(animated)
         
         // Set segment control to new values
         let val0 = defaults.double(forKey: "tip0")
         setTipValue(index: 0, val: val0)
-        
         let val1 = defaults.double(forKey: "tip1")
         setTipValue(index: 1, val: val1)
-        
         let val2 = defaults.double(forKey: "tip2")
         setTipValue(index: 2, val: val2)
         
+        // set Light/Dark mode to corresponding setting
         let light = defaults.bool(forKey: "DarkMode")
         changeColorSettings(LightMode: light)
         
+        // Output previous calculation
         reloadData()
 
     }
